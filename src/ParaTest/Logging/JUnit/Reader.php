@@ -192,4 +192,9 @@ class Reader extends MetaProvider
         $node = current($this->xml->xpath("/testsuites/testsuite"));
         $this->suites[] = TestSuite::suiteFromNode($node);
     }
+
+    public function getXml()
+    {
+        return $this->xml;
+    }
 }

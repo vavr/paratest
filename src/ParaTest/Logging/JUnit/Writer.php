@@ -77,13 +77,17 @@ class Writer
      */
     public function getXml()
     {
-        $suites = $this->interpreter->flattenCases();
-        $root = $this->getSuiteRoot($suites);
-        foreach($suites as $suite) {
-            $snode = $this->appendSuite($root, $suite);
-            foreach($suite->cases as $case)
-                $cnode = $this->appendCase($snode, $case);
+        $testsuites = $this->document->createElement("testsuites");
+
+        foreach ($this->interpreter->getReaders() as $reader) {
+
+            $domElement = dom_import_simplexml($reader->getXml()->children());
+            $domElementAdd = $this->document->importNode($domElement, true);
+
+            $testsuites->appendChild($domElementAdd);
         }
+
+        $this->document->appendChild($testsuites);
         return $this->document->saveXML();
     }
 
