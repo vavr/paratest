@@ -195,4 +195,9 @@ class Reader extends MetaProvider
             $this->suites[] = TestSuite::suiteFromNode($node);
         }
     }
+
+    public function getXml()
+    {
+        return $this->xml;
+    }
 }
